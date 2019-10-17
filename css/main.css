@@ -767,7 +767,7 @@ html {
 }
 
 .song-area {
-    display: block;
+    display: flex;
     height: 53px;
     margin-top: 29px
 }
