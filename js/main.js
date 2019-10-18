@@ -29,23 +29,6 @@ let prevAngleRad = null;
 let prevRotate = null;
 
 
-function setEvtListeners() {
-    const elem = document.querySelector('.knob-container');
-
-}
-
-setEvtListeners();
-
-
-document.querySelectorAll('.modal_close').forEach(b => {
-    b.onclick = function() {
-        document.querySelectorAll('.modal').forEach(m => {
-            m.classList.toggle('modal_open', false);
-            document.querySelector('body').style.overflow = 'auto';
-        });
-    }
-});
-
 const TEMPS = {
     'manual': -10,
     'cold': 0,
@@ -64,19 +47,6 @@ const showModal = function(selector) {
     document.querySelector(selector).classList.toggle('modal_open', true);
     document.querySelector('body').style.overflow = 'hidden';
 }
-
-
-document.querySelectorAll('.panel_lamp').forEach(p => {
-    p.onclick = function() {
-        showModal('.modal_light');
-    }
-});
-
-document.querySelectorAll('.panel_floor').forEach(p => {
-    p.onclick = function() {
-        showModal('.modal_knob');
-    }
-});
 
 document.addEventListener("DOMContentLoaded", function() {
     var waterContainer = document.querySelector('.card.card_size_s:last-child');
@@ -112,28 +82,7 @@ const selectButtonText = document.querySelector('.filter__select-button .button_
 const selectOptions = document.querySelectorAll('.filter__select-item');
 const popup = document.querySelector('.filter__select-popup');
 
-
-
-let widths = '';
-window.addEventListener('scroll', function() {
-    widths += document.querySelectorAll('body')[0].offsetWidth;
-
-});
-
-selectOptions.forEach(o => {
-    o.addEventListener('click', function(e) {
-        document.querySelector('#' + e.target.dataset.group).checked = true;
-
-        selectOptions.forEach(opt => opt.classList.toggle('filter__select-item_checked', false));
-        e.target.classList.toggle('filter__select-item_checked', true);
-        popup.classList.toggle('filter__select-popup_open', false);
-        selectButtonText.innerText = e.target.innerText;
-    })
-});
-
-
-
-var storage, initCriticalCam = function() {
+function initCriticalCam() {
     var u, m, p, v, h, y = new Array,
         g = document.querySelector(".critical-cam"),
         f = 0,
@@ -172,21 +121,12 @@ var storage, initCriticalCam = function() {
     }), document.addEventListener("pointerup", e), g.addEventListener("onpointerup", e)
 };
 
-
-function status(e) {
-    return 200 <= e.status && e.status < 300 ? Promise.resolve(e) : Promise.reject(new Error(e.statusText))
-}
-
-function json(e) {
-    return e.json()
-}
-
-function buildHTML(e) {
-    e.events.forEach(function(e) {
-        var t, n, o, r, i, c, a, l, s, d, u, m, p, v, h, y, g, f, S, q, x, L, C;
-        v = document.querySelector(".content"), n = (t = document.querySelector("template").cloneNode(!0).content).querySelector(".card"), l = t.querySelector(".card-specs"), i = t.querySelector(".card-heading"), o = t.querySelector(".card-title"), r = t.querySelector(".card-icon"), c = t.querySelector(".card-source"), a = t.querySelector(".card-time"), o.textContent = e.title, r.src = "img/" + e.icon + ".svg", c.textContent = e.source, a.textContent = e.time, "s" == e.size && a.classList.add("card-time_block"), e.description && null != e.description && ((d = document.querySelector(".template-description").content.querySelector(".card-description")).textContent = e.description, "l" == e.size && d.classList.add("card-description_big"), "critical" == e.type && (d.classList.add("description_critical"), i.classList.add("heading-critical"), l.classList.add("specs-critical"), e.data && e.data.image && (C = document.querySelector(".template-cam").content, d.appendChild(C))), n.appendChild(d.cloneNode(!0))), e.data && ("graph" == (u = e.data).type && ((p = (m = document.querySelector(".template-graph").content.querySelector(".card-data")).querySelector("img")).srcset = "\n            img/Richdata.png 590w,\n            img/Richdata@2x.png 1180w,\n            img/Richdata@3x.png 1770w", p.sizes = "\n                (max-width: 590px) 590px,\n        (max-width: 1180px) 1180px,\n        1770px\n                ", p.src = "img/Richdata@2x.png", n.appendChild(m.cloneNode(!0))), u.temperature && (g = (y = document.querySelector(".template-climat").content.querySelector(".card-data")).querySelector(".climat-block_data__temp"), f = y.querySelector(".climat-block_data__hum"), g.textContent = u.temperature + " C", f.textContent = u.humidity + "%", n.appendChild(y.cloneNode(!0))), u.volume && (x = (S = document.querySelector(".template-music").content.querySelector(".card-data_music")).querySelector(".cover"), L = S.querySelector(".song-title"), q = S.querySelector(".song-length"), S.querySelector(".song-volume").textContent = u.volume + "%", q.textContent = u.track.length, L.textContent = u.artist + " - " + u.track.name, x.src = u.albumcover, n.appendChild(S.cloneNode(!0))), u.buttons && (s = document.querySelector(".template-buttons").content, n.appendChild(s.cloneNode(!0)))), n.classList.add("card_size_" + e.size), "critical" == e.type && n.classList.add("critical"), h = document.importNode(t, !0), v.appendChild(h)
-    })
-}
+// function buildHTML(e) {
+//     e.events.forEach(function(e) {
+//         var t, n, o, r, i, c, a, l, s, d, u, m, p, v, h, y, g, f, S, q, x, L, C;
+//         v = document.querySelector(".content"), n = (t = document.querySelector("template").cloneNode(!0).content).querySelector(".card"), l = t.querySelector(".card-specs"), i = t.querySelector(".card-heading"), o = t.querySelector(".card-title"), r = t.querySelector(".card-icon"), c = t.querySelector(".card-source"), a = t.querySelector(".card-time"), o.textContent = e.title, r.src = "img/" + e.icon + ".svg", c.textContent = e.source, a.textContent = e.time, "s" == e.size && a.classList.add("card-time_block"), e.description && null != e.description && ((d = document.querySelector(".template-description").content.querySelector(".card-description")).textContent = e.description, "l" == e.size && d.classList.add("card-description_big"), "critical" == e.type && (d.classList.add("description_critical"), i.classList.add("heading-critical"), l.classList.add("specs-critical"), e.data && e.data.image && (C = document.querySelector(".template-cam").content, d.appendChild(C))), n.appendChild(d.cloneNode(!0))), e.data && ("graph" == (u = e.data).type && ((p = (m = document.querySelector(".template-graph").content.querySelector(".card-data")).querySelector("img")).srcset = "\n            img/Richdata.png 590w,\n            img/Richdata@2x.png 1180w,\n            img/Richdata@3x.png 1770w", p.sizes = "\n                (max-width: 590px) 590px,\n        (max-width: 1180px) 1180px,\n        1770px\n                ", p.src = "img/Richdata@2x.png", n.appendChild(m.cloneNode(!0))), u.temperature && (g = (y = document.querySelector(".template-climat").content.querySelector(".card-data")).querySelector(".climat-block_data__temp"), f = y.querySelector(".climat-block_data__hum"), g.textContent = u.temperature + " C", f.textContent = u.humidity + "%", n.appendChild(y.cloneNode(!0))), u.volume && (x = (S = document.querySelector(".template-music").content.querySelector(".card-data_music")).querySelector(".cover"), L = S.querySelector(".song-title"), q = S.querySelector(".song-length"), S.querySelector(".song-volume").textContent = u.volume + "%", q.textContent = u.track.length, L.textContent = u.artist + " - " + u.track.name, x.src = u.albumcover, n.appendChild(S.cloneNode(!0))), u.buttons && (s = document.querySelector(".template-buttons").content, n.appendChild(s.cloneNode(!0)))), n.classList.add("card_size_" + e.size), "critical" == e.type && n.classList.add("critical"), h = document.importNode(t, !0), v.appendChild(h)
+//     })
+// }
 
 document.addEventListener("DOMContentLoaded", function() {
     const buttonsContainer = document.querySelector(".buttons-wrap");
