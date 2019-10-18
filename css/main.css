@@ -654,7 +654,12 @@ html {
 }
 
 .card-icon-wrap {
-    width: 47px
+    width: 47px;
+    /*overflow: hidden;*/
+}
+
+.carousel-element {
+    overflow: hidden;
 }
 
 .card-title {
