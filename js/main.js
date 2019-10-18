@@ -191,7 +191,7 @@ function buildHTML(e) {
 document.addEventListener("DOMContentLoaded", function() {
     const buttonsContainer = document.querySelector(".buttons-wrap");
     const fridgeInfoContainer = document.querySelector(".card_size_m:nth-child(8) .card-description");
-    // setTimeout(function() {
+    setTimeout(function() {
         const confirmPurchaseButton = document.querySelector(".buttons-wrap .button_yellow");
         const purchaseListContainer = document.createElement('div');
         const purchaseListTitle = document.createElement('p');
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
             fridgeInfoContainer.replaceWith(purchaseListContainer)
             buttonsContainer.style.display = "none";
         }
-    // }, 500)
+    }, 500)
 
 
     document.getElementsByClassName("header-menu__switcher")[0].addEventListener("click", function() {
