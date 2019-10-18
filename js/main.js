@@ -1,125 +1,13 @@
 "use strict";
 
-! function(t) {
-    var e = window["pcodeJsonp6187"];
-    window["pcodeJsonp6187"] = function(i, o, r) {
-        for (var a, s, l = 0, p = []; l < i.length; l++)
-            s = i[l],
-            n[s] && p.push(n[s][0]),
-            n[s] = 0;
-        for (a in o)
-            Object.prototype.hasOwnProperty.call(o, a) && (t[a] = o[a]);
-        for (e && e(i, o, r); p.length;)
-            p.shift()()
-    };
-    var i = {},
-        n = {
-            2: 0
-        };
-
-    function o(e) {
-        if (i[e])
-            return i[e].exports;
-        var n = i[e] = {
-            i: e,
-            l: !1,
-            exports: {}
-        };
-        return t[e].call(n.exports, n, n.exports, o),
-            n.l = !0,
-            n.exports
-    }
-    o.e = function(t) {
-            var e = n[t];
-            if (0 === e)
-                return new Promise(function(t) {
-                    t()
-                });
-            if (e)
-                return e[2];
-            var i = new Promise(function(i, o) {
-                e = n[t] = [i, o]
-            });
-            e[2] = i;
-            var r = document.getElementsByTagName("head")[0],
-                a = document.createElement("script");
-            a.type = "text/javascript",
-                a.charset = "utf-8",
-                a.async = !0,
-                a.timeout = 12e4,
-                o.nc && a.setAttribute("nonce", o.nc),
-                a.src = o.p + "" + {
-                    0: "9b10f65b0c7e7a1d8693",
-                    1: "7641180249a9d7be3cfa"
-                } [t] + ".js";
-            var s = setTimeout(l, 12e4);
-
-            function l() {
-                a.onerror = a.onload = null,
-                    clearTimeout(s);
-                var e = n[t];
-                0 !== e && (e && e[1](new Error("Loading chunk " + t + " failed.")),
-                    n[t] = void 0)
-            }
-            return a.onerror = a.onload = l,
-                r.appendChild(a),
-                i
-        },
-        o.m = t,
-        o.c = i,
-        o.d = function(t, e, i) {
-            o.o(t, e) || Object.defineProperty(t, e, {
-                configurable: !1,
-                enumerable: !0,
-                get: i
-            })
-        },
-        o.n = function(t) {
-            var e = t && t.__esModule ? function() {
-                    return t["default"]
-                } :
-                function() {
-                    return t
-                };
-            return o.d(e, "a", e),
-                e
-        },
-        o.o = function(t, e) {
-            return Object.prototype.hasOwnProperty.call(t, e)
-        },
-        o.p = "//an.yandex.ru/partner-code-bundles/6187/",
-        o.oe = function(t) {
-            throw console.error(t),
-                t
-        },
-        o(o.s = 271)
-}
-
-
 const output = document.querySelector('.modal__value');
 const rangeSLider = document.querySelector('.adjust-bar.adjust-bar_theme_temp');
-
-// rangeSLider.oninput = function() {
-//     output.innerHTML = this.value > 0 ? '+' + this.value : this.value;
-// }
-
 const arrowLeftDevs = document.querySelector('.devices__paginator .paginator__arrow_left');
 const arrowRightDevs = document.querySelector('.devices__paginator .paginator__arrow_right');
 const panelCountDevs = document.querySelectorAll('.devices__panel').length;
 const devices = document.querySelector('.devices');
 const pagiantorDevs = document.querySelector('.devices__paginator');
 let currentPageDevs = 1;
-
-// pagiantorDevs.classList.toggle('paginator_hide', panelCountDevs < 7);
-
-// $('.card').each(function(e) {
-//     if ($(this).hasClass('card_size_s')) {
-//         $(this).css({'border-radius': '22px'})
-//     } else {
-//         $(this).css({'border-radius': '54px'})
-//     }
-// });
-
 
 let curValue;
 let curRotate;
@@ -130,96 +18,16 @@ const MIN_VALUE = 26;
 const MAX_VALUE = 35;
 const INDICATOR_OFFSET = 265;
 
-const rotateToValue = function(rotate) {
-    return Math.floor((Math.abs(rotate * 360 * 1.73 + INDICATOR_OFFSET) / 53) + MIN_VALUE);
-}
-
-
 /**
  * @param {Number} rotate Количество оборотов от нейтриального положения.
  */
-function setRotate(rotate) {
-    if (rotate > maxRotate) {
-        rotate = maxRotate;
-    } else if (rotate < minRotate) {
-        rotate = minRotate;
-    }
 
-    curRotate = rotate;
-    curValue = rotateToValue(rotate);
 
-    document.querySelector('.modal_knob .modal__value').innerHTML = '+' + curValue;
-    document.querySelector('.knob__value').innerHTML = '+' + curValue;
-    document.querySelector('.knob__indicator').style.strokeDasharray = curRotate * 360 * 1.73 + INDICATOR_OFFSET + ' 629';
-    document.querySelector('.knob__arrow').style.transform = 'rotate(' + (curRotate * 360) + 'deg)';
-}
-
-function getPosition(elem) {
-    const rect = elem.getBoundingClientRect();
-
-    return [
-        rect.left + (rect.right - rect.left) / 2,
-        rect.top + (rect.bottom - rect.top) / 2
-    ];
-}
-
-function getMouseAngle(event, centerElem) {
-    const pos = getPosition(centerElem);
-    let cursor = [event.clientX, event.clientY];
-    let rad;
-
-    if (event.targetTouches && event.targetTouches[0]) {
-        cursor = [event.targetTouches[0].clientX, event.targetTouches[0].clientY];
-    }
-
-    rad = Math.atan2(cursor[1] - pos[1], cursor[0] - pos[0]);
-    rad += Math.PI / 2;
-
-    return rad;
-}
 
 let knobDragged;
 let prevAngleRad = null;
 let prevRotate = null;
 
-function startDragging(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const rad = getMouseAngle(e, document.querySelector('.knob_center'));
-
-    knobDragged = true;
-    prevAngleRad = rad;
-    prevRotate = curRotate;
-}
-
-function stopDragging(e) {
-    knobDragged = false;
-}
-
-function dragRotate(e) {
-    if (!knobDragged) {
-        return;
-    }
-
-    const old = prevAngleRad;
-    let rad = getMouseAngle(e, document.querySelector('.knob_center'));
-    let delta = rad - old;
-
-    prevAngleRad = rad;
-
-    if (delta < 0) {
-        delta += Math.PI * 2;
-    }
-    if (delta > Math.PI) {
-        delta -= Math.PI * 2;
-    }
-
-    const deltaRotate = delta / Math.PI / 2;
-    const rotate = prevRotate + deltaRotate;
-
-    prevRotate = rotate;
-    setRotate(rotate);
-}
 
 function setEvtListeners() {
     const elem = document.querySelector('.knob-container');
@@ -271,13 +79,6 @@ document.querySelectorAll('.panel_floor').forEach(p => {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    // $('.card').each(function(e) {
-    //     if ($(this).hasClass('card_size_s')) {
-    //         $(this).css({'border-radius': '22px'})
-    //     } else {
-    //         $(this).css({'border-radius': '23px'})
-    //     }
-    // });
     var waterContainer = document.querySelector('.card.card_size_s:last-child');
 
     waterContainer.innerHTML =
