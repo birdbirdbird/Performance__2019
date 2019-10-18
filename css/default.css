@@ -199,7 +199,8 @@ h4, .h4 {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border-radius: 0.25rem;
+  /* border-radius: 0.25rem; */
+  border-radius: 23px;
 }
 
 .card-title {
