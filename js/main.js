@@ -18,52 +18,27 @@ const MIN_VALUE = 26;
 const MAX_VALUE = 35;
 const INDICATOR_OFFSET = 265;
 
-/**
- * @param {Number} rotate Количество оборотов от нейтриального положения.
- */
-
-
-
 let knobDragged;
 let prevAngleRad = null;
 let prevRotate = null;
 
 
-const TEMPS = {
-    'manual': -10,
-    'cold': 0,
-    'warm': 23,
-    'hot': 30
-}
+// document.addEventListener("DOMContentLoaded", function() {
+//     var waterContainer = document.querySelector('.card.card_size_s:last-child');
 
-document.querySelectorAll('.modal__filter-item_temp').forEach(l => {
-    l.onclick = function() {
-        document.querySelector('.adjust-bar_theme_temp').value = TEMPS[this.id];
-        document.querySelector('.modal_temp .modal__value').innerHTML = TEMPS[this.id] > 0 ? '+' + TEMPS[this.id] : TEMPS[this.id];
-    }
-});
+//     waterContainer.innerHTML =
+//         '<div class="card-heading">' +
+//         '<div class="card-icon-wrap">' +
+//         '<img class="card-icon" src="img/kettle.svg">' +
+//         '</div>' +
+//         '<h3 class="card-title">Вода вскипела</h3>' +
+//         ' </div>' +
+//         '<div class="card-specs">' +
+//         '<p class="card-source">Чайник</p>' +
+//         '<p class="card-time card-time_block">16:20, Сегодня</p>' +
+//         '</div>'
 
-const showModal = function(selector) {
-    document.querySelector(selector).classList.toggle('modal_open', true);
-    document.querySelector('body').style.overflow = 'hidden';
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    var waterContainer = document.querySelector('.card.card_size_s:last-child');
-
-    waterContainer.innerHTML =
-        '<div class="card-heading">' +
-        '<div class="card-icon-wrap">' +
-        '<img class="card-icon" src="img/kettle.svg">' +
-        '</div>' +
-        '<h3 class="card-title">Вода вскипела</h3>' +
-        ' </div>' +
-        '<div class="card-specs">' +
-        '<p class="card-source">Чайник</p>' +
-        '<p class="card-time card-time_block">16:20, Сегодня</p>' +
-        '</div>'
-
-});
+// });
 
 
 const arrowLeftScens = document.querySelector('.scenarios__paginator .paginator__arrow_left');
