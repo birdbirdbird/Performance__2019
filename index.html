@@ -197,6 +197,14 @@
                     <p class="card-time">17:23, Сегодня</p>
                 </div>
                 <p class="card-description card-description_big description_critical">Кажется, в холодильнике заканчивается молоко. Вы хотите добавить его в список покупок?</p>
+                
+                <div class="purchase-list-wrap" style="display: none;">
+                    <p class="card-description card-description_big description_critical">Список покупок:</p>
+                    <ol class="purchase-list">
+                        <li class="purchase-list__item">Хлеб</li>
+                        <li class="purchase-list__item">Молоко</li>
+                    </ol>
+                </div>
 
                 <div class="buttons-wrap">
                     <button class="button button_yellow" type="button">
@@ -268,9 +276,23 @@
     </menu>
 </footer>
 
-<script src="./js/index.js"></script>
-<script src="./js/main.js"></script>
+<!-- <script src="./js/index.js"></script> -->
+<!-- <script src="./js/main.js"></script>	 -->
+<script>
+    // document.getElementById('b').onclick = a => a.currentTarget.parentNode.children[1].classList.toggle('a')
+
+    document.querySelector(".buttons-wrap .button_yellow").addEventListener("click", function() {
+        document.querySelector(".purchase-list-wrap").style.display = "block"
+        document.querySelector(".buttons-wrap").style.display = "none";
+    })
+    document.getElementsByClassName("header-menu__switcher")[0].addEventListener("click", function() {
+        document.getElementsByClassName("header-menu")[0].classList.toggle("header-menu_active")
+    })
+
+    // document.getElementById('c').onclick = a => a.currentTarget.parentNode.parentNode.classList.toggle('a')
+</script>
+<!-- 
 <script src="https://unpkg.com/react@0.0.0-375616788/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@0.0.0-375616788/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@0.0.0-375616788/umd/react-dom.production.min.js"></script> -->
 </body>
 </html>
